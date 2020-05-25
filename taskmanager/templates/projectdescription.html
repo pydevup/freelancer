@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% load static %}
+		<title>Freelancer Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static "assets/css/main.css" %}" />
+		<noscript><link rel="stylesheet" href="{% static "assets/css/noscript.css" %}"/></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href={% url "taskmanager:index" %} class="title">Freelancer Website</a>
+				<nav>
+					<ul>
+						<li><a href="{% url 'taskmanager:index' %}" class="active">Home</a></li>
+						{% if not request.user.is_authenticated %}
+							<li><a href="{% url 'taskmanager:login' %}">Login</a></li>
+							<li><a href="{% url 'taskmanager:signup' %}">Signup</a></li>
+						{% endif %}
+						<li><a href="{% url 'taskmanager:post_project' %}">Post a Project</a></li>
+						<li><a href="{% url 'taskmanager:browse_jobs' %}">Browse Jobs</a></li>
+						{% if request.user.is_authenticated %}
+							<li><a href="{% url 'taskmanager:profile' request.user.username %}">Profile</a></li>
+							<li><a href="{% url 'taskmanager:myprojects' %}">My Projects</a></li>
+							<li><a href="{% url 'taskmanager:logout' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">{{project.project_name}}</h1>
+							{% if error_message %}
+							<b>{{error_message}}</b><br> 
+							{% endif %}
+							<h3>Project description:</h3>
+							<p>{{project.description}}</p>
+							<hr />
+							<p>
+								<b>Posted On: {{project.postedOn}}</b>
+								<i>Deadline: {{project.deadline}}</i>
+							</p>
+							{% if not request.user.is_authenticated %}
+								<i>Login then you can apply.</i>
+							{% endif %}
+							{% if request.user.is_authenticated and not is_leader %}
+								<a href="#" class="button primary icon solid">Apply</a>
+							{% endif %}
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved for Freelance.</li><li>Design: <a href="#">Hamed Bahrami</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static "assets/js/jquery.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrollex.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrolly.min.js" %}" ></script>
+			<script src="{% static "assets/js/browser.min.js" %}" ></script>
+			<script src="{% static "assets/js/breakpoints.min.js" %}" ></script>
+			<script src="{% static "assets/js/util.js" %}"></script>
+			<script src="{% static "assets/js/main.js" %}"></script>
+
+	</body>
+</html>

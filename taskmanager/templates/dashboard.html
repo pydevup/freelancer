@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% load static %}
+		<title>Freelancer Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static "assets/css/main.css" %}" />
+		<noscript><link rel="stylesheet" href="{% static "assets/css/noscript.css" %}"/></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href={% url "taskmanager:index" %} class="title">Freelancer Website</a>
+				<nav>
+					<ul>
+						<li><a href="{% url 'taskmanager:index' %}" class="active">Home</a></li>
+						{% if not request.user.is_authenticated %}
+							<li><a href="{% url 'taskmanager:login' %}">Login</a></li>
+							<li><a href="{% url 'taskmanager:signup' %}">Signup</a></li>
+						{% endif %}
+						<li><a href="{% url 'taskmanager:post_project' %}">Post a Project</a></li>
+						<li><a href="{% url 'taskmanager:browse_jobs' %}">Browse Jobs</a></li>
+						{% if request.user.is_authenticated %}
+							<li><a href="{% url 'taskmanager:profile' request.user.username %}">Profile</a></li>
+							<li><a href="{% url 'taskmanager:myprojects' %}">My Projects</a></li>
+							<li><a href="{% url 'taskmanager:logout' %}">Logout</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Your projects</h1>
+							<!-- list of projects -->
+							<div class="project">
+								{% for project in posted_projects %}
+									<a href="{% url "taskmanager:project_description" project.id %}" target="_blank">
+										<h2>{{project.project_name}}</h2>
+									</a>
+									<p class="project-description">
+										{{project.description}}
+									</p>
+								{% endfor %}
+							</div>
+							<!-- end list of projects -->
+						</div>
+					</section>
+
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Recommended projects</h1>
+							<!-- list of projects -->
+							<div class="project">
+								{% for job in jobs_recommended %}
+									<a href="{% url "taskmanager:project_description" job.id %}" target="_blank">
+										<h2>{{job.project_name}}</h2>
+									</a>
+									<p class="project-description">
+										{{job.description}}
+									</p>
+								{% endfor %}
+							</div>
+							<!-- end list of projects -->
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved for Freelance.</li><li>Design: <a href="#">Hamed Bahrami</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static "assets/js/jquery.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrollex.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrolly.min.js" %}" ></script>
+			<script src="{% static "assets/js/browser.min.js" %}" ></script>
+			<script src="{% static "assets/js/breakpoints.min.js" %}" ></script>
+			<script src="{% static "assets/js/util.js" %}"></script>
+			<script src="{% static "assets/js/main.js" %}"></script>
+
+	</body>
+</html>

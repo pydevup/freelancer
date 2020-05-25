@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% load static %}
+		<title>Freelancer Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static "assets/css/main.css" %}" />
+		<noscript><link rel="stylesheet" href="{% static "assets/css/noscript.css" %}"/></noscript>
+	</head>
+	<body class="is-preload">
+		
+		<!-- Header -->
+			<header id="header">
+				<a href={% url "taskmanager:index" %} class="title">Freelancer Website</a>
+				<nav>
+					<ul>
+						<li><a href="{% url 'taskmanager:index' %}" class="active">Home</a></li>
+						<li><a href="{% url 'taskmanager:login' %}">Login</a></li>
+						<li><a href="{% url 'taskmanager:signup' %}">Signup</a></li>
+						<li><a href="{% url 'taskmanager:post_project' %}">Post a Project</a></li>
+						<li><a href="{% url 'taskmanager:browse_jobs' %}">Browse Jobs</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Post Your Project</h1>
+							<p id="error" >
+								{% if error_message %}
+									<b>{{error_message}}</b>
+								<br> {% endif %}
+							</p>
+
+								{% if post_project %}
+									<form method="post" id="signup-form" action="{% url 'taskmanager:signup' %}">
+								{% else %}
+									<form method="post">
+								{% endif %}
+								{% csrf_token %}
+								<div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<label for="name">
+												<h3>Choose a name for your project</h3>
+                							</label>
+										</div>
+									</div>
+									<div class="row">	
+										<div class="col-4 col-12-xsmall">
+											<input type="text" id="name" name="name" value="{{name}}" placeholder="e.g. Build me a website" required tabindex="1" autofocus/>
+							            	<br>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<label for="message">
+		                    					<h3>Tell us more about your project</h3>
+							                    <p>Start with a bit about yourself or your business, and include an overview of what you need done.</p>
+							                </label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+                							<textarea class="txt" id="message" name="desc" placeholder="Describe your project here." tabindex="5" required>{{desc}}</textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<label for="date">
+                    							<h3>When do you want it to be done?</h3>
+                							</label>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<input type="date" style="background-color:#312450;" id="date" name="deadline" value='{{deadline}}' required>
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<input type="submit" value="Post" />
+											<br>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved for Freelance.</li><li>Design: <a href="#">Hamed Bahrami</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static "assets/js/jquery.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrollex.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrolly.min.js" %}" ></script>
+			<script src="{% static "assets/js/browser.min.js" %}" ></script>
+			<script src="{% static "assets/js/breakpoints.min.js" %}" ></script>
+			<script src="{% static "assets/js/util.js" %}"></script>
+			<script src="{% static "assets/js/main.js" %}"></script>
+			<script>
+				window.onload = function () {
+				  var form = document.getElementById('signup-form');
+				  form.submit = function (){
+					for(var i=0; i < form.elements.length; i++){
+					  if(form.elements[i].value === '' && form.elements[i].hasAttribute('required')){
+						errElement = $('#error');
+						errElement.html("There are some required fields!");
+						return false;
+					  }
+					}
+					form.submit();
+				  }; 
+				};
+			</script>	
+	</body>
+</html>

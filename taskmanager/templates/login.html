@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{% load static %}
+		<title>Freelancer Website</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static "assets/css/main.css" %}" />
+		<noscript><link rel="stylesheet" href="{% static "assets/css/noscript.css" %}"/></noscript>
+	</head>
+	<body class="is-preload">
+		
+		<!-- Header -->
+			<header id="header">
+				<a href={% url "taskmanager:index" %} class="title">Freelancer Website</a>
+				<nav>
+					<ul>
+						<li><a href="{% url 'taskmanager:index' %}" class="active">Home</a></li>
+						<li><a href="{% url 'taskmanager:login' %}">Login</a></li>
+						<li><a href="{% url 'taskmanager:signup' %}">Signup</a></li>
+						<li><a href="{% url 'taskmanager:post_project' %}">Post a Project</a></li>
+						<li><a href="{% url 'taskmanager:browse_jobs' %}">Browse Jobs</a></li>
+
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Log In</h1>
+							{% if error_message %}
+								<b>{{error_message}}</b>
+							<br> {% endif %}
+
+							<form method="post" action="{% url 'taskmanager:login' %}">
+								{% csrf_token %}
+								<div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<input type="text" autofocus maxlength="256" name="name" placeholder="Username" required/>
+											<br>
+										</div>
+									</div>
+									<div class="row">	
+										<div class="col-4 col-12-xsmall">
+											<input type="password" maxlength="256" name="passwd" placeholder="Password" required/>
+											<br>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 col-12-xsmall">
+											<input type="submit" value="Login" data-wait="Please wait..." class="submit"/>
+											<br>
+										</div>
+									</div>
+								</div>
+							</form>
+
+						</div>
+					</section>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved for Freelance.</li><li>Design: <a href="#">Hamed Bahrami</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="{% static "assets/js/jquery.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrollex.min.js" %}"></script>
+			<script src="{% static "assets/js/jquery.scrolly.min.js" %}" ></script>
+			<script src="{% static "assets/js/browser.min.js" %}" ></script>
+			<script src="{% static "assets/js/breakpoints.min.js" %}" ></script>
+			<script src="{% static "assets/js/util.js" %}"></script>
+			<script src="{% static "assets/js/main.js" %}"></script>
+
+	</body>
+</html>
